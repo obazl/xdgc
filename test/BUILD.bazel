@@ -1,0 +1,39 @@
+load("@makeheaders//src:RULES.bzl", "makeheaders")
+
+load("//config/cc:CONFIG.bzl",
+     "BASE_DEPS",
+     "BASE_COPTS",
+     "BASE_INCLUDE_PATHS",
+     DEFINES = "BASE_DEFINES")
+
+DEPS  = BASE_DEPS + ["@uthash//src:uthash"]
+COPTS = BASE_COPTS + BASE_INCLUDE_PATHS + ["-I$(@uthash)/src"]
+TOOLCHAINS = ["//:test_repo_paths"]
+
+################################################################
+# test_suite(
+#     name  = "test",
+#     tests = [
+#     ]
+# )
+
+cc_binary(
+    name  = "xdgc_test",
+    linkstatic = 1,
+    srcs  = ["xdgc_test.c", ":mkhdrs"],
+    deps = DEPS + ["//src:xdgc"],
+    copts = COPTS + ["-I$(GENDIR)/$(@)/test"],
+    local_defines = DEFINES,
+    toolchains = TOOLCHAINS,
+)
+
+################################################################
+makeheaders(
+    name = "mkhdrs",
+    hdrs_srcs = [
+        "xdgc_test.c",
+    ],
+    additional_srcs = [
+        "//src:xdgc.h",
+    ],
+)
