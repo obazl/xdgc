@@ -1,13 +1,9 @@
 load("@makeheaders//src:RULES.bzl", "makeheaders")
 
-load("//config/cc:CONFIG.bzl",
-     "BASE_DEPS",
+load("@cc_config//:CONFIG.bzl",
      "BASE_COPTS",
-     "BASE_INCLUDE_PATHS",
-     DEFINES = "BASE_DEFINES")
+     "BASE_LINKOPTS")
 
-DEPS  = BASE_DEPS + ["@uthash//src:uthash"]
-COPTS = BASE_COPTS + BASE_INCLUDE_PATHS + ["-I$(@uthash)/src"]
 TOOLCHAINS = ["//:test_repo_paths"]
 
 ################################################################
@@ -21,9 +17,14 @@ cc_binary(
     name  = "xdgc_test",
     linkstatic = 1,
     srcs  = ["xdgc_test.c", ":mkhdrs"],
-    deps = DEPS + ["//src:xdgc"],
-    copts = COPTS + ["-I$(GENDIR)/$(@)/test"],
-    local_defines = DEFINES,
+    deps  = ["@liblogc//src:logc",
+             "@uthash//src:uthash",
+             "//src:xdgc"],
+    copts = BASE_COPTS + [
+        "-I$(GENDIR)/$(@)/test",
+        "-I$(@liblogc)/src",
+        "-I$(@uthash)/src"
+    ],
     toolchains = TOOLCHAINS,
 )
 

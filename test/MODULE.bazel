@@ -1,0 +1,2 @@
+bazel_dep(name = "xdgc")
+local_path_override(module_name = "xdgc", path = "..")
