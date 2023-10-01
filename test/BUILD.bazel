@@ -26,6 +26,10 @@ cc_binary(
         "-I$(@liblogc)/src",
         "-I$(@uthash)/src"
     ],
+    linkopts = select({
+        "@platforms//os:macos": ["-Xlinker", "-no_warn_duplicate_libraries"],
+        "//conditions:default": []
+    }),
     toolchains = TOOLCHAINS,
 )
 
