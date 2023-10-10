@@ -17,7 +17,8 @@ cc_library(
         # "-Wno-unused-function",
         "-I$(@liblogc)/src",
         "-I$(@uthash)/src",
-        "-I$(GENDIR)/$(@)/src"
+        "-I$(GENDIR)/$(@)/src",
+        "'-D$(MODULE_NAME)_VERSION=\"$(MODULE_VERSION)\"'"
     ] + select({
         "@platforms//os:linux": ["-std=gnu11"],
         "//conditions:default": ["-std=c11"],

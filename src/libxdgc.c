@@ -6,6 +6,8 @@
 
 bool verbose;
 
+const char *xdgc_version = XDGC_VERSION;
+
 /* XDG
    https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
    Base dirs:
