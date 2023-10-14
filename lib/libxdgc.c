@@ -18,20 +18,24 @@ bool verbose;
  */
 #define XDG_DATA_HOME 0
 #define XDG_DATA_HOME_SFX ".local/share"
-UT_string *ut_xdg_data_home;
+/* UT_string *ut_xdg_data_home; */
 
 #define XDG_CONFIG_HOME 1
 #define XDG_CONFIG_HOME_SFX ".config"
-UT_string *ut_xdg_config_home;
+/* UT_string *ut_xdg_config_home; */
 
 /* state home for history files, current state to be reused on restart */
+#define XDG_STATE_HOME 2
 #define XDG_STATE_HOME_SFX ".local/state"
-UT_string *xdg_state_home;
+/* UT_string *ut_xdg_state_home; */
 
-#define XDG_BIN_HOME_SFX   ".local/bin"
-UT_string *xdg_bin_home;
-
+#define XDG_CACHE_HOME 3
 #define XDG_CACHE_HOME_SFX ".cache"
+/* UT_string *ut_xdg_cache_home; */
+
+#define XDG_BIN_HOME 4
+#define XDG_BIN_HOME_SFX   ".local/bin"
+/* UT_string *ut_xdg_bin_home; */
 
 /* sockets, named pipes, etc. */
 /* #define XDG_RUNTIME_DIR */
@@ -54,6 +58,18 @@ char *_xdg_home_dir(int which)
     case XDG_CONFIG_HOME:
         _xdg_home_env = getenv("XDG_CONFIG_HOME");
         sfx = XDG_CONFIG_HOME_SFX;
+        break;
+    case XDG_STATE_HOME:
+        _xdg_home_env = getenv("XDG_STATE_HOME");
+        sfx = XDG_STATE_HOME_SFX;
+        break;
+    case XDG_CACHE_HOME:
+        _xdg_home_env = getenv("XDG_CACHE_HOME");
+        sfx = XDG_CACHE_HOME_SFX;
+        break;
+    case XDG_BIN_HOME:
+        _xdg_home_env = getenv("XDG_BIN_HOME");
+        sfx = XDG_BIN_HOME_SFX;
         break;
     }
 
@@ -81,44 +97,17 @@ EXPORT char *xdg_config_home(void)
     return _xdg_home_dir(XDG_CONFIG_HOME);
 }
 
-EXPORT void config_xdg_dirs(void)
+EXPORT char *xdg_state_home(void)
 {
-#if defined(DEBUG_TRACE)
-    log_debug("config_xdg_dirs");
-    if (trace) log_trace("config_xdg_dirs");
-#endif
+    return _xdg_home_dir(XDG_STATE_HOME);
+}
 
-    char *s_xdg_data_home = getenv("XDG_DATA_HOME");
-    utstring_new(ut_xdg_data_home);
+EXPORT char *xdg_cache_home(void)
+{
+    return _xdg_home_dir(XDG_CACHE_HOME);
+}
 
-    if (s_xdg_data_home == NULL) {
-        s_xdg_data_home = getenv("HOME");
-        utstring_printf(ut_xdg_data_home,
-                        "%s/" XDG_DATA_HOME_SFX,
-                        s_xdg_data_home);
-        //FIXME: create dirpath?
-    } else {
-        utstring_printf(ut_xdg_data_home, "%s", s_xdg_data_home);
-        //FIXME: existence check?
-    }
-    if (verbose)
-        log_trace("ut_xdg_data_home: %s", utstring_body(ut_xdg_data_home));
-
-    /* NB: XDG_BIN_HOME is not defined by the standard, so it will
-       probably be undefined. */
-    char *s_xdg_bin_home = getenv("XDG_BIN_HOME");
-    utstring_new(xdg_bin_home);
-
-    if (s_xdg_bin_home == NULL) {
-        s_xdg_bin_home = getenv("HOME");
-        utstring_printf(xdg_bin_home,
-                        "%s/" XDG_BIN_HOME_SFX,
-                        s_xdg_bin_home);
-        //FIXME: create dirpath?
-    } else {
-        utstring_printf(xdg_bin_home, "%s", s_xdg_bin_home);
-        //FIXME: existence check?
-    }
-    if (verbose)
-        log_trace("xdg_bin_home: %s", utstring_body(xdg_bin_home));
+EXPORT char *xdg_bin_home(void)
+{
+    return _xdg_home_dir(XDG_BIN_HOME);
 }
