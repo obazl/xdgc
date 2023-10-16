@@ -48,8 +48,8 @@ bool verbose;
 char *_xdg_home_dir(int which)
 {
     UT_string *ut_xdg_home_dir;
-    char *_xdg_home_env;
-    char *sfx;
+    char *_xdg_home_env = NULL;
+    char *sfx = NULL;
     switch(which) {
     case XDG_DATA_HOME:
         _xdg_home_env = getenv("XDG_DATA_HOME");
