@@ -13,12 +13,10 @@
 
 #include <unistd.h>
 
-#include "log.h"
-
+#include "liblogc.h"
 #include "utarray.h"
 #include "utstring.h"
 #include "utstring.h"
-
 #include "xdgc_test.h"
 
 int main(int argc, char *argv[])

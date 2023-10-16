@@ -1,6 +1,6 @@
 #include <stdbool.h>
 
-#include "log.h"
+#include "liblogc.h"
 #include "utstring.h"
 #include "libxdgc.h"
 

@@ -5,7 +5,7 @@ load("@obazl_tools_cc//config/cc:CONFIG.bzl",
      "BASE_LINKOPTS",
      "BASE_LOCAL_DEFINES")
 
-TOOLCHAINS = ["//:test_module_profiles"]
+# TOOLCHAINS = ["//:test_module_profiles"]
 
 ################################################################
 # test_suite(
@@ -18,16 +18,13 @@ cc_binary(
     name  = "xdgc_test",
     linkstatic = 1,
     srcs  = ["xdgc_test.c", ":mkhdrs"],
-    deps  = ["@liblogc//src:logc",
-             "@uthash//src:uthash",
+    deps  = ["@liblogc//lib:logc",
+             "@uthash//lib:uthash",
              "//lib:xdgc"],
     copts = BASE_COPTS + [
-        "-I$(GENDIR)/$(@)/test",
-        "-I$(@liblogc)/src",
-        "-I$(@uthash)/src"
+        "-I$(GENDIR)/test",
     ],
     local_defines = BASE_LOCAL_DEFINES,
-    toolchains = TOOLCHAINS,
 )
 
 ################################################################
