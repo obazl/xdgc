@@ -57,7 +57,8 @@ int main(int argc, char *argv[])
     char *wd = getenv("BUILD_WORKING_DIRECTORY");
     if (wd) {
         /* we launched from bazel workspace, cd to launch dir */
-        chdir(wd);
+        int rc = chdir(wd);
+        (void)rc;
     }
 
     char *s = xdg_bin_home();
