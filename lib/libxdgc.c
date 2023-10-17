@@ -6,6 +6,13 @@
 
 bool verbose;
 
+#if defined(DEBUG_fastbuild)
+#define TRACE_FLAG xdgc_trace
+extern bool TRACE_FLAG;
+#define DEBUG_LEVEL xdgc_debug
+extern int  DEBUG_LEVEL;
+#endif
+
 /* XDG
    https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
    Base dirs:
@@ -47,6 +54,7 @@ bool verbose;
 /* client is responsible for checking existence */
 char *_xdg_home_dir(int which)
 {
+    TRACE_ENTRY;
     UT_string *ut_xdg_home_dir;
     char *_xdg_home_env = NULL;
     char *sfx = NULL;

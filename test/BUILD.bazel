@@ -3,16 +3,8 @@ load("@makeheaders//src:RULES.bzl", "makeheaders")
 load("@obazl_tools_cc//config/cc:CONFIG.bzl",
      "BASE_COPTS",
      "BASE_LINKOPTS",
-     "BASE_LOCAL_DEFINES")
-
-# TOOLCHAINS = ["//:test_module_profiles"]
-
-################################################################
-# test_suite(
-#     name  = "test",
-#     tests = [
-#     ]
-# )
+     "BASE_LOCAL_DEFINES",
+     "module_version")
 
 cc_binary(
     name  = "xdgc_test",
@@ -24,7 +16,7 @@ cc_binary(
     copts = BASE_COPTS + [
         "-I$(GENDIR)/test",
     ],
-    local_defines = BASE_LOCAL_DEFINES,
+    local_defines = BASE_LOCAL_DEFINES + module_version()
 )
 
 ################################################################

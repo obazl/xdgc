@@ -4,7 +4,7 @@ load("@obazl_tools_cc//config/cc:CONFIG.bzl",
      "BASE_COPTS",
      "BASE_LINKOPTS",
      "BASE_LOCAL_DEFINES",
-     "MODULE_VERSION")
+     "module_version")
 
 cc_library(
     name  = "xdgc",
@@ -13,8 +13,8 @@ cc_library(
     includes = ["."],
     deps  = ["@liblogc//lib:logc",
              "@uthash//lib:uthash"],
-    copts = BASE_COPTS + [MODULE_VERSION()],
-    local_defines = BASE_LOCAL_DEFINES,
+    copts = BASE_COPTS,
+    local_defines = BASE_LOCAL_DEFINES + module_version(),
     visibility = ["//visibility:public"]
 )
 
@@ -22,6 +22,15 @@ cc_library(
 makeheaders(
     name             = "mkhdrs",
     hdrs_srcs        = ["libxdgc.c"],
+    additional_srcs  = select({
+        "//config/compilation_mode:fastbuild?": [
+            "@makeheaders//logging:ansi_colors.h",
+            "@makeheaders//logging:macros_debug.h"
+        ],
+        "//conditions:default": [
+            "@makeheaders//logging:macros_ndebug.h"
+        ]
+    }),
 )
 
 makeheaders(

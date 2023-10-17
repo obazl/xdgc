@@ -19,17 +19,37 @@
 #include "utstring.h"
 #include "xdgc_test.h"
 
+#if defined(DEBUG_fastbuild)
+#define TRACE_FLAG xdgc_trace
+bool TRACE_FLAG;
+#define DEBUG_LEVEL xdgc_debug
+int  DEBUG_LEVEL;
+#endif
+
+void usage(char *arg)
+{
+    log_info("Usage: %s [-f] [findlibfile]", arg);
+}
+
 int main(int argc, char *argv[])
 {
     int opt;
 
-    while ((opt = getopt(argc, argv, "hv")) != -1) {
+    while ((opt = getopt(argc, argv, "hdtv")) != -1) {
         switch (opt) {
         case 'h':
-            log_info("Help: ");
+            usage(argv[0]);
             exit(EXIT_SUCCESS);
+#if defined(DEBUG_fastbuild)
+        case 'd':
+            xdgc_debug++;
+            break;
+        case 't':
+            xdgc_trace = true;
+            break;
+#endif
         default:
-            log_error("Usage: %s [-f] [findlibfile]", argv[0]);
+            usage(argv[0]);
             exit(EXIT_FAILURE);
         }
     }
@@ -40,12 +60,24 @@ int main(int argc, char *argv[])
         chdir(wd);
     }
 
-    char *s = xdg_data_home();
-    log_info("xdg data home: %s", s);
+    char *s = xdg_bin_home();
+    log_info("xdg bin home: %s", s);
+    free(s);
+
+    s = xdg_cache_home();
+    log_info("xdg cache home: %s", s);
     free(s);
 
     s = xdg_config_home();
     log_info("xdg config home: %s", s);
+    free(s);
+
+    s = xdg_data_home();
+    log_info("xdg data home: %s", s);
+    free(s);
+
+    s = xdg_state_home();
+    log_info("xdg state home: %s", s);
     free(s);
 
     log_info("exiting");
