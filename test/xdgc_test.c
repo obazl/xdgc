@@ -19,7 +19,7 @@
 #include "utstring.h"
 #include "xdgc_test.h"
 
-#if defined(DEBUG_fastbuild)
+#if defined(PROFILE_fastbuild)
 #define TRACE_FLAG xdgc_trace
 bool TRACE_FLAG;
 #define DEBUG_LEVEL xdgc_debug
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
         case 'h':
             usage(argv[0]);
             exit(EXIT_SUCCESS);
-#if defined(DEBUG_fastbuild)
+#if defined(PROFILE_fastbuild)
         case 'd':
             xdgc_debug++;
             break;

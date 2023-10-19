@@ -1,20 +1,21 @@
 load("@bazel_skylib//lib:paths.bzl", "paths")
 load("@makeheaders//src:RULES.bzl", "makeheaders")
-load("@obazl_tools_cc//config/cc:CONFIG.bzl",
+load("@obazl_tools_cc//config:BASE.bzl",
      "BASE_COPTS",
      "BASE_LINKOPTS",
-     "BASE_LOCAL_DEFINES",
-     "module_version")
+     "define_module_version")
 
+###########
 cc_library(
     name  = "xdgc",
-    srcs  = ["libxdgc.c", "mkhdrs"],
+    srcs  = ["libxdgc.c", ":mkhdrs"],
     hdrs  = ["xdgc.h"],
     includes = ["."],
-    deps  = ["@liblogc//lib:logc",
-             "@uthash//lib:uthash"],
+    implementation_deps  = ["@liblogc//lib:logc",
+                            "@uthash//lib:uthash"],
     copts = BASE_COPTS,
-    local_defines = BASE_LOCAL_DEFINES + module_version(),
+    local_defines = define_module_version(),
+    defines = ["PROFILE_$(COMPILATION_MODE)"],
     visibility = ["//visibility:public"]
 )
 
@@ -23,7 +24,7 @@ makeheaders(
     name             = "mkhdrs",
     hdrs_srcs        = ["libxdgc.c"],
     additional_srcs  = select({
-        "//config/compilation_mode:fastbuild?": [
+        "@makeheaders//compilation_mode:fastbuild": [
             "@makeheaders//logging:ansi_colors.h",
             "@makeheaders//logging:macros_debug.h"
         ],

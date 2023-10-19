@@ -6,7 +6,7 @@
 
 bool verbose;
 
-#if defined(DEBUG_fastbuild)
+#if defined(PROFILE_fastbuild)
 #define TRACE_FLAG xdgc_trace
 extern bool TRACE_FLAG;
 #define DEBUG_LEVEL xdgc_debug
