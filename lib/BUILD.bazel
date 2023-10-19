@@ -1,8 +1,6 @@
-load("@bazel_skylib//lib:paths.bzl", "paths")
-load("@makeheaders//src:RULES.bzl", "makeheaders")
+load("@makeheaders//rules:makeheaders.bzl", "makeheaders")
 load("@obazl_tools_cc//config:BASE.bzl",
-     "BASE_COPTS",
-     "define_module_version")
+     "BASE_COPTS", "define_module_version")
 
 ###########
 cc_library(
