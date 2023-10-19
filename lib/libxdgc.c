@@ -4,6 +4,8 @@
 #include "utstring.h"
 #include "libxdgc.h"
 
+char *xdgc_version = XDGC_VERSION;
+
 bool verbose;
 
 #if defined(PROFILE_fastbuild)

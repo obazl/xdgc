@@ -2,7 +2,6 @@ load("@bazel_skylib//lib:paths.bzl", "paths")
 load("@makeheaders//src:RULES.bzl", "makeheaders")
 load("@obazl_tools_cc//config:BASE.bzl",
      "BASE_COPTS",
-     "BASE_LINKOPTS",
      "define_module_version")
 
 ###########

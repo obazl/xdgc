@@ -19,6 +19,8 @@
 #include "utstring.h"
 #include "xdgc_test.h"
 
+extern char *xdgc_version;
+
 #if defined(PROFILE_fastbuild)
 #define TRACE_FLAG xdgc_trace
 bool TRACE_FLAG;
@@ -60,6 +62,8 @@ int main(int argc, char *argv[])
         int rc = chdir(wd);
         (void)rc;
     }
+
+    log_info("xdgc version %s", xdgc_version);
 
     char *s = xdg_bin_home();
     log_info("xdg bin home: %s", s);
