@@ -10,9 +10,9 @@ bool verbose;
 
 #if defined(PROFILE_fastbuild)
 #define TRACE_FLAG xdgc_trace
-extern bool TRACE_FLAG;
+bool TRACE_FLAG;
 #define DEBUG_LEVEL xdgc_debug
-extern int  DEBUG_LEVEL;
+int  DEBUG_LEVEL;
 #endif
 
 /* XDG
