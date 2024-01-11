@@ -4,9 +4,9 @@
 #include "utstring.h"
 #include "libxdgc.h"
 
-char *xdgc_version = XDGC_VERSION;
-
 bool verbose;
+
+const char *xdgc_version = XDGC_VERSION;
 
 #if defined(PROFILE_fastbuild)
 #define TRACE_FLAG xdgc_trace
