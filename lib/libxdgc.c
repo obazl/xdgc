@@ -4,7 +4,7 @@
 #include "utstring.h"
 #include "libxdgc.h"
 
-bool verbose;
+/* bool verbose; */
 
 const char *xdgc_version = XDGC_VERSION;
 
