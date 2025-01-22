@@ -1,5 +1,5 @@
 load("@makeheaders//rules:makeheaders.bzl", "makeheaders")
-load("@obazl_tools_cc//config:BASE.bzl",
+load("@obazl_config_cc//config:BASE.bzl",
      "BASE_COPTS", "define_module_version")
 
 cc_binary(

@@ -1,5 +1,6 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
 load("@makeheaders//rules:makeheaders.bzl", "makeheaders")
-load("@obazl_tools_cc//config:BASE.bzl",
+load("@obazl_config_cc//config:BASE.bzl",
      "BASE_COPTS", "define_module_version")
 
 ###########
@@ -25,12 +26,12 @@ makeheaders(
     name             = "mkhdrs",
     hdrs_srcs        = ["libxdgc.c"],
     additional_srcs  = select({
-        "@makeheaders//compilation_mode:fastbuild": [
-            "@makeheaders//logging:ansi_colors.h",
-            "@makeheaders//logging:macros_debug.h"
+        "@obazl_config_cc//compilation_mode:fastbuild?": [
+            "@liblogc//macros:ansi_colors.h",
+            "@liblogc//macros:logging_debug.h"
         ],
         "//conditions:default": [
-            "@makeheaders//logging:macros_ndebug.h"
+            "@liblogc//macros:logging_ndebug.h"
         ]
     }),
 )
